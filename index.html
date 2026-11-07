@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vila dos Jogos — Portal de Jogos</title>
+  <!-- Fontes aconchegantes estilo Heisei Retro / Cozy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Gaegu:wght@400;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       1. TELA DE ABERTURA (SPLASH SCREEN)
+       ========================================================= -->
+  <section id="splash-screen" class="splash-screen active" aria-label="Tela de Abertura da Vila dos Jogos">
+    <div class="splash-backdrop"></div>
+    
+    <!-- Brilhos pulsantes bem pequenos espalhados pela tela -->
+    <div class="sparkles-layer" aria-hidden="true">
+      <span class="sparkle-dot s1"></span>
+      <span class="sparkle-dot s2"></span>
+      <span class="sparkle-dot s3"></span>
+      <span class="sparkle-dot s4"></span>
+      <span class="sparkle-dot s5"></span>
+      <span class="sparkle-dot s6"></span>
+      <span class="sparkle-dot s7"></span>
+      <span class="sparkle-dot s8"></span>
+      <span class="sparkle-dot s9"></span>
+      <span class="sparkle-dot s10"></span>
+      <span class="sparkle-dot s11"></span>
+      <span class="sparkle-dot s12"></span>
+      <span class="sparkle-dot s13"></span>
+      <span class="sparkle-dot s14"></span>
+      <span class="sparkle-dot s15"></span>
+      <span class="sparkle-dot s16"></span>
+    </div>
+
+    <div class="splash-card">
+      <div class="splash-awning"></div>
+      
+      <div class="splash-badge">Entre, escolha seu jogo e aproveite!</div>
+      
+      <div class="splash-mascot-wrap">
+        <img src="assets/mascot_icon.png" alt="Mascote da Vila dos Jogos" class="splash-mascot" onerror="this.style.display='none'" />
+      </div>
+
+      <h1 class="splash-title">
+        <span class="title-line-1">Vila dos</span>
+        <span class="title-line-2">Jogos</span>
+      </h1>
+
+      <p class="splash-subtitle">
+        Sempre tem algo divertido esperando por você!
+      </p>
+
+      <button id="btn-enter-portal" class="btn-jogar" type="button">
+        <span class="btn-jogar-text">JOGAR</span>
+      </button>
+
+      <div class="splash-tags">
+        <span class="mini-pill">Infantil</span>
+        <span class="mini-pill">Nostalgia e Retrô</span>
+        <span class="mini-pill">Educativo</span>
+        <span class="mini-pill">Passatempos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       2. TELA PRINCIPAL DO PORTAL (MAIN SCREEN)
+       ========================================================= -->
+  <div id="portal-screen" class="portal-screen hidden">
+    
+    <!-- Barra superior limpa apenas com o botão de início e o nome do site -->
+    <div class="top-utility-bar">
+      <button id="btn-back-splash" class="btn-back-splash" title="Voltar para a tela de abertura">
+        Início
+      </button>
+      <div class="portal-site-title">
+        Vila dos Jogos
+      </div>
+      <div class="top-bar-spacer" aria-hidden="true"></div>
+    </div>
+
+    <!-- Layout de 3 Colunas: Banner de Aviso Esquerdo | Janela Principal | Lateral Direita Vazia -->
+    <div class="portal-layout">
+
+      <!-- LATERAL ESQUERDA: BANNER DE AVISO (OCULTANDO QUE É RESERVADO PARA ANÚNCIO) -->
+      <aside class="ad-sidebar ad-left" aria-label="Quadro de avisos da Vila">
+        <div class="ad-slot-frame">
+          <div class="ad-placeholder-box">
+            <p class="ad-notice-message">Novos jogos estão a caminho! Fique de olho!</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTRO: JANELA PRINCIPAL DO PORTAL -->
+      <main class="retro-window">
+        
+        <!-- Topo Xadrez com Mascote da Galinha, Barra de Busca e Botões -->
+        <header class="window-top-bar">
+          <div class="brand-logo" id="logo-home-click">
+            <img src="assets/mascot_icon.png" alt="Mascote Galinha da Vila dos Jogos" class="brand-mini-mascot" onerror="this.style.display='none'" />
+            <div class="brand-text">
+              <span class="brand-name">Vila dos Jogos</span>
+              <span class="brand-tagline">= diversão para todo mundo =</span>
+            </div>
+          </div>
+
+          <div class="search-box-stitched">
+            <input type="text" id="game-search-input" placeholder="procurar um jogo..." aria-label="Procurar um jogo" />
+          </div>
+
+          <div class="window-action-buttons">
+            <button class="win-icon-btn" title="Mostrar todos os jogos" data-reset-filter="todos">Todos</button>
+          </div>
+        </header>
+
+        <!-- Toldo Verde Clarinho -->
+        <div class="window-awning-strip" aria-hidden="true"></div>
+
+        <!-- CABEÇALHO DE CATEGORIAS -->
+        <nav class="categories-header" aria-label="Categorias de Jogos">
+          <div class="categories-section-title">
+            <span class="wooden-sign-badge">Escolha uma Categoria</span>
+          </div>
+
+          <div class="category-tabs-container" id="category-tabs">
+            <button class="category-tab active" data-category="todos">
+              <span class="cat-medal">01</span>
+              <span class="cat-ribbon">Todos</span>
+            </button>
+
+            <button class="category-tab" data-category="infantil">
+              <span class="cat-medal">02</span>
+              <span class="cat-ribbon">Infantil</span>
+            </button>
+
+            <button class="category-tab" data-category="nostalgia">
+              <span class="cat-medal">03</span>
+              <span class="cat-ribbon">Nostalgia e Retrô</span>
+            </button>
+
+            <button class="category-tab" data-category="matematica">
+              <span class="cat-medal">04</span>
+              <span class="cat-ribbon">Matemática</span>
+            </button>
+
+            <button class="category-tab" data-category="portugues">
+              <span class="cat-medal">05</span>
+              <span class="cat-ribbon">Português</span>
+            </button>
+
+            <button class="category-tab" data-category="ingles">
+              <span class="cat-medal">06</span>
+              <span class="cat-ribbon">Inglês</span>
+            </button>
+
+            <button class="category-tab" data-category="passatempos">
+              <span class="cat-medal">07</span>
+              <span class="cat-ribbon">Quebra-Cabeças</span>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Divisória de fita xadrez -->
+        <div class="gingham-divider" aria-hidden="true"></div>
+
+        <!-- CORPO INTERNO DA JANELA: GRADE DOS JOGOS PRINCIPAIS -->
+        <section class="window-content-area">
+          
+          <div class="content-Area-header">
+            <div class="current-category-banner">
+              <h2 id="current-category-title">Todos os Jogos da Vila</h2>
+              <p id="current-category-desc">Escolha uma opção abaixo para explorar os jogos disponíveis em breve.</p>
+            </div>
+            <div class="slots-counter">
+              <span id="visible-slots-count">9</span> jogos listados
+            </div>
+          </div>
+
+          <!-- GRADE DE JANELAS DOS JOGOS -->
+          <div class="games-grid" id="games-grid">
+            <!-- Preenchido dinamicamente pelo script.js -->
+          </div>
+
+        </section>
+
+        <!-- Rodapé da Janela -->
+        <footer class="window-footer">
+          <div class="footer-note-pill">
+            <strong>Vila dos Jogos</strong> • Jogos e desafios para crianças, jovens e adultos
+          </div>
+        </footer>
+
+      </main>
+
+      <!-- LATERAL DIREITA: VAZIA (SEM BANNER, RESERVADA NO LAYOUT) -->
+      <aside class="ad-sidebar ad-right-empty" aria-hidden="true"></aside>
+
+    </div>
+  </div>
+
+  <!-- =========================================================
+       3. MODAL DO JOGO (QUANDO CLICA EM UMA JANELA DE JOGO)
+       ========================================================= -->
+  <div id="game-slot-modal" class="slot-modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
+    <div class="slot-modal-backdrop" id="modal-backdrop-close"></div>
+    <div class="slot-modal-window">
+      <div class="slot-modal-header">
+        <span id="modal-game-badge" class="modal-cat-pill">Categoria</span>
+        <button id="btn-close-modal" class="btn-close-modal" title="Fechar janela">Fechar</button>
+      </div>
+      <div class="slot-modal-body">
+        <div class="modal-canvas-placeholder">
+          <h3 id="modal-game-title">Área do Jogo</h3>
+          <p id="modal-game-desc">
+            Este jogo estará disponível em breve na Vila dos Jogos.
+          </p>
+          <div class="dev-slot-info">
+            <span>Status: Em preparação</span>
+          </div>
+        </div>
+      </div>
+      <div class="slot-modal-footer">
+        <button id="btn-modal-back" class="btn-cozy-secondary">Voltar para a Vila</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

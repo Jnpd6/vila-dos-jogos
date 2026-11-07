@@ -1,0 +1,1077 @@
+/* ==========================================================================
+   VILA DOS JOGOS — TEMA FAZENDINHA / COZY / HEISEI RETRO
+   ========================================================================== */
+
+:root {
+  /* Paleta de Cores Aconchegante com Verde Clarinho */
+  --bg-meadow-light: #e3f4d3;
+  --bg-meadow-mid: #cbe8b0;
+
+  --green-pastel: #c5e898;
+  --green-pastel-light: #dcf2be;
+  --green-soft-btn: #b5e48c;
+  --green-soft-btn-hover: #c4ed9f;
+  --green-moss: #5c8d28;
+  --green-dark-outline: #3f5e22;
+
+  --yellow-butter: #fff3b0;
+  --yellow-gingham: #ffe47a;
+  --yellow-warm: #f7c948;
+
+  --cream-paper: #fffdf5;
+  --cream-card: #fef9e7;
+  --cream-dots: #f3e8c8;
+
+  --wood-brown: #6b4c35;
+  --wood-dark: #4a3321;
+  --wood-light: #a67c52;
+  --wood-tan: #e6ccb2;
+
+  /* Tipografia */
+  --font-display: 'Fredoka', sans-serif;
+  --font-hand: 'Gaegu', cursive;
+  --font-body: 'Quicksand', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--wood-dark);
+  background-color: var(--bg-meadow-mid);
+  /* Imagem de fundo do gatinho na fazendinha totalmente visível e nítida */
+  background-image: url('assets/splash_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   1. TELA DE ABERTURA (SPLASH SCREEN) — FUNDO NÍTIDO SEM DESFOQUE
+   ========================================================================== */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-image: url('assets/splash_bg.png');
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* Sem blur/desfoque para que a paisagem e o gatinho fiquem bem visíveis */
+.splash-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(25, 18, 10, 0.08);
+}
+
+/* Brilhos pulsantes bem pequenos espalhados */
+.sparkles-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fffbe0;
+  box-shadow: 0 0 8px 3px rgba(255, 248, 185, 0.85), 0 0 14px 5px rgba(255, 223, 107, 0.45);
+  animation: pulseSparkle 2.8s ease-in-out infinite;
+}
+
+.sparkle-dot:nth-child(even) {
+  width: 4px;
+  height: 4px;
+  animation-duration: 2.1s;
+}
+
+.sparkle-dot:nth-child(3n) {
+  width: 5px;
+  height: 5px;
+  animation-duration: 3.4s;
+}
+
+.s1  { top: 12%; left: 10%; animation-delay: 0.1s; }
+.s2  { top: 18%; left: 26%; animation-delay: 1.1s; }
+.s3  { top: 9%;  left: 48%; animation-delay: 0.6s; }
+.s4  { top: 15%; left: 74%; animation-delay: 1.7s; }
+.s5  { top: 22%; left: 88%; animation-delay: 0.4s; }
+.s6  { top: 38%; left: 8%;  animation-delay: 1.9s; }
+.s7  { top: 44%; left: 19%; animation-delay: 0.8s; }
+.s8  { top: 36%; left: 82%; animation-delay: 1.3s; }
+.s9  { top: 52%; left: 91%; animation-delay: 2.2s; }
+.s10 { top: 68%; left: 12%; animation-delay: 0.3s; }
+.s11 { top: 75%; left: 24%; animation-delay: 1.5s; }
+.s12 { top: 84%; left: 15%; animation-delay: 2.5s; }
+.s13 { top: 64%; left: 78%; animation-delay: 0.9s; }
+.s14 { top: 79%; left: 86%; animation-delay: 1.8s; }
+.s15 { top: 88%; left: 64%; animation-delay: 0.5s; }
+.s16 { top: 28%; left: 62%; animation-delay: 2.0s; }
+
+@keyframes pulseSparkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+/* Box Central mais transparente para deixar a arte de fundo aparecer */
+.splash-card {
+  position: relative;
+  z-index: 5;
+  max-width: 540px;
+  width: 100%;
+  background-color: rgba(255, 253, 245, 0.72);
+  backdrop-filter: blur(3px);
+  border: 4px solid var(--wood-brown);
+  border-radius: 32px;
+  padding: 3.1rem 2.2rem 2.1rem;
+  text-align: center;
+  box-shadow: 
+    0 14px 0 rgba(74, 51, 33, 0.85),
+    0 24px 45px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 3px rgba(255, 243, 176, 0.7);
+  overflow: hidden;
+  animation: popInCard 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popInCard {
+  0% { transform: scale(0.88) translateY(16px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Listras no topo da caixa em verde clarinho */
+.splash-awning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 34px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #c5e898 0px,
+      #c5e898 24px,
+      #dff5c1 24px,
+      #dff5c1 48px
+    );
+  border-bottom: 3.5px dashed var(--wood-brown);
+}
+
+.splash-badge {
+  display: inline-block;
+  background: rgba(255, 243, 176, 0.9);
+  color: var(--wood-dark);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 0.25rem 1.15rem;
+  border-radius: 999px;
+  border: 2px dashed var(--wood-brown);
+  margin-bottom: 0.85rem;
+}
+
+.splash-mascot-wrap {
+  width: 118px;
+  height: 118px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  border: 4px solid var(--wood-brown);
+  outline: 3px dashed #9fd468;
+  outline-offset: 4px;
+  background: var(--yellow-butter);
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(107, 76, 53, 0.22);
+}
+
+.splash-mascot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.splash-title {
+  font-family: var(--font-display);
+  line-height: 1.02;
+  margin-bottom: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-line-1 {
+  font-size: 2.3rem;
+  color: var(--green-moss);
+  text-shadow: 
+    -2px -2px 0 #fff,
+     2px -2px 0 #fff,
+    -2px  2px 0 #fff,
+     2px  2px 0 #fff,
+     0px  4px 0 var(--wood-brown);
+}
+
+.title-line-2 {
+  font-size: 3.8rem;
+  color: var(--yellow-warm);
+  letter-spacing: 1px;
+  text-shadow: 
+    -3px -3px 0 var(--wood-dark),
+     3px -3px 0 var(--wood-dark),
+    -3px  3px 0 var(--wood-dark),
+     3px  3px 0 var(--wood-dark),
+     0px  7px 0 var(--wood-dark);
+}
+
+.splash-subtitle {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  max-width: 420px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.45;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Botão Principal "JOGAR" em Verde Clarinho */
+.btn-jogar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: linear-gradient(180deg, #d4f5b2 0%, #b3e384 100%);
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 0.9rem 3.5rem;
+  border-radius: 999px;
+  border: 4px solid var(--wood-dark);
+  box-shadow: 
+    0 8px 0 var(--wood-dark),
+    0 14px 24px rgba(0, 0, 0, 0.2),
+    inset 0 3px 0 rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  margin-bottom: 1.5rem;
+}
+
+.btn-jogar::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  border: 2px dashed rgba(74, 51, 33, 0.35);
+  pointer-events: none;
+}
+
+.btn-jogar:hover {
+  transform: translateY(-3px) scale(1.03);
+  filter: brightness(1.04);
+  box-shadow: 
+    0 11px 0 var(--wood-dark),
+    0 18px 28px rgba(0, 0, 0, 0.25),
+    inset 0 3px 0 rgba(255, 255, 255, 0.85);
+}
+
+.btn-jogar:active {
+  transform: translateY(5px);
+  box-shadow: 
+    0 3px 0 var(--wood-dark),
+    0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.splash-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.mini-pill {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: rgba(254, 249, 231, 0.9);
+  color: var(--wood-brown);
+  padding: 0.25rem 0.8rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--wood-light);
+}
+
+/* ==========================================================================
+   2. TELA PRINCIPAL DO PORTAL
+   ========================================================================== */
+.portal-screen {
+  min-height: 100vh;
+  padding: 0.85rem 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  animation: fadeInPortal 0.45s ease;
+}
+
+@keyframes fadeInPortal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Barra superior mostrando somente o nome do site e botão voltar */
+.top-utility-bar {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(255, 253, 245, 0.92);
+  border: 3px solid var(--wood-brown);
+  border-radius: 999px;
+  padding: 0.45rem 1.2rem;
+  box-shadow: 0 4px 0 rgba(74, 51, 33, 0.25);
+}
+
+.btn-back-splash {
+  background: var(--yellow-butter);
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.3rem 0.95rem;
+  border-radius: 999px;
+  border: 2px solid var(--wood-brown);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn-back-splash:hover {
+  background: var(--yellow-gingham);
+  transform: translateY(-1px);
+}
+
+.portal-site-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  letter-spacing: 0.5px;
+}
+
+.top-bar-spacer {
+  width: 72px;
+}
+
+/* Layout de 3 Colunas: Lateral Esquerda (Banner) | Centro | Lateral Direita (Vazia) */
+.portal-layout {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) 210px;
+  gap: 1.15rem;
+  align-items: start;
+}
+
+/* ==========================================================================
+   LATERAL ESQUERDA COM AVISO & LATERAL DIREITA VAZIA
+   ========================================================================== */
+.ad-sidebar {
+  position: sticky;
+  top: 1rem;
+}
+
+.ad-right-empty {
+  min-height: 1px;
+  pointer-events: none;
+}
+
+.ad-slot-frame {
+  background-color: rgba(255, 253, 245, 0.92);
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      rgba(230, 204, 178, 0.2) 0px,
+      rgba(230, 204, 178, 0.2) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  border: 3.5px solid var(--wood-brown);
+  border-radius: 22px;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  box-shadow: 0 8px 0 rgba(74, 51, 33, 0.25);
+}
+
+.ad-placeholder-box {
+  min-height: 460px;
+  border: 2.5px dashed var(--wood-light);
+  border-radius: 16px;
+  background: rgba(255, 250, 232, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 0.85rem;
+}
+
+.ad-notice-message {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--wood-brown);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   JANELA PRINCIPAL DO SITE
+   ========================================================================== */
+.retro-window {
+  background-color: var(--cream-paper);
+  border: 5px solid var(--wood-brown);
+  border-radius: 28px;
+  box-shadow: 
+    0 14px 0 var(--wood-dark),
+    0 22px 40px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.window-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  background-color: #fff6cc;
+  background-image: 
+    linear-gradient(90deg, rgba(255, 219, 102, 0.55) 50%, transparent 50%),
+    linear-gradient(rgba(255, 219, 102, 0.55) 50%, transparent 50%);
+  background-size: 32px 32px;
+  border-bottom: 4px solid var(--wood-brown);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.brand-mini-mascot {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid var(--wood-brown);
+  background: var(--cream-paper);
+  object-fit: cover;
+  box-shadow: 0 3px 0 rgba(74, 51, 33, 0.25);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  line-height: 1.05;
+  text-shadow: 2px 2px 0 #ffffff;
+}
+
+.brand-tagline {
+  font-family: var(--font-hand);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--green-moss);
+}
+
+/* Barra de busca com borda costurada */
+.search-box-stitched {
+  flex: 1;
+  max-width: 360px;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 3px dashed var(--green-moss);
+  border-radius: 999px;
+  padding: 0.48rem 1.1rem;
+  box-shadow: 0 3px 0 rgba(92, 141, 40, 0.2);
+}
+
+.search-box-stitched input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+}
+
+.search-box-stitched input::placeholder {
+  color: #a99985;
+}
+
+.window-action-buttons {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.win-icon-btn {
+  padding: 0.45rem 1rem;
+  border-radius: 14px;
+  background: var(--green-pastel);
+  border: 2.5px dashed var(--green-moss);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--wood-dark);
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(92, 141, 40, 0.25);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.win-icon-btn:hover {
+  background: var(--green-pastel-light);
+  transform: translateY(-2px);
+}
+
+/* Toldo em Verde Clarinho */
+.window-awning-strip {
+  height: 22px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #c5e898 0px,
+      #c5e898 28px,
+      #dff5c1 28px,
+      #dff5c1 56px
+    );
+  border-bottom: 3.5px solid var(--wood-brown);
+}
+
+/* ==========================================================================
+   CABEÇALHO DE CATEGORIAS
+   ========================================================================== */
+.categories-header {
+  padding: 1.25rem 1.4rem 1.35rem;
+  background: 
+    radial-gradient(rgba(140, 198, 63, 0.22) 2px, transparent 2px),
+    linear-gradient(180deg, #eff9d8 0%, #dcf2b8 100%);
+  background-size: 16px 16px, 100% 100%;
+}
+
+.categories-section-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.wooden-sign-badge {
+  display: inline-block;
+  background: var(--cream-paper);
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.35rem 1.3rem;
+  border-radius: 12px;
+  border: 3px solid var(--wood-brown);
+  box-shadow: 0 4px 0 rgba(107, 76, 53, 0.25);
+}
+
+.category-tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+.category-tab {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.category-tab:hover {
+  transform: translateY(-4px);
+}
+
+.cat-medal {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cream-paper);
+  border: 3.5px solid var(--wood-brown);
+  box-shadow: inset 0 0 0 4px #d9f0b4, 0 4px 0 rgba(74, 51, 33, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--wood-brown);
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+  z-index: 1;
+}
+
+.cat-ribbon {
+  margin-top: -10px;
+  background: #ffffff;
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 8px;
+  border: 2.5px solid var(--wood-brown);
+  box-shadow: 0 3px 0 rgba(74, 51, 33, 0.22);
+  white-space: nowrap;
+  z-index: 2;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.category-tab.active .cat-medal {
+  background: var(--yellow-gingham);
+  color: var(--wood-dark);
+  box-shadow: inset 0 0 0 4px #ffffff, 0 4px 0 var(--wood-brown);
+}
+
+.category-tab.active .cat-ribbon {
+  background: var(--green-pastel);
+  color: var(--wood-dark);
+}
+
+/* Divisória de Fita Xadrez */
+.gingham-divider {
+  height: 16px;
+  background-color: #d9f2e6;
+  background-image: 
+    linear-gradient(45deg, rgba(126, 200, 227, 0.45) 25%, transparent 25%, transparent 75%, rgba(126, 200, 227, 0.45) 75%),
+    linear-gradient(-45deg, rgba(126, 200, 227, 0.45) 25%, transparent 25%, transparent 75%, rgba(126, 200, 227, 0.45) 75%);
+  background-size: 16px 16px;
+  border-top: 2.5px solid var(--wood-brown);
+  border-bottom: 2.5px solid var(--wood-brown);
+}
+
+/* ==========================================================================
+   ÁREA CENTRAL: GRADE DE JANELAS DOS JOGOS PRINCIPAIS
+   ========================================================================== */
+.window-content-area {
+  padding: 1.6rem 1.5rem 2rem;
+  background-color: var(--cream-paper);
+  background-image: radial-gradient(var(--cream-dots) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.content-Area-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.35rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 2.5px dashed var(--wood-tan);
+}
+
+.current-category-banner h2 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--wood-dark);
+  margin-bottom: 0.15rem;
+}
+
+.current-category-banner p {
+  font-size: 0.92rem;
+  color: var(--wood-brown);
+  font-weight: 600;
+}
+
+.slots-counter {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: var(--yellow-butter);
+  color: var(--wood-brown);
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 2px dashed var(--wood-brown);
+}
+
+/* Grade de Janelas dos Jogos */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+  gap: 1.25rem;
+}
+
+.game-window-card {
+  background: #ffffff;
+  border: 3.5px solid var(--wood-brown);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 7px 0 rgba(107, 76, 53, 0.2);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.game-window-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 0 rgba(107, 76, 53, 0.28);
+}
+
+.game-win-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.85rem;
+  background: var(--yellow-butter);
+  border-bottom: 2.5px solid var(--wood-brown);
+}
+
+.game-win-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.win-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--wood-brown);
+}
+.win-dot.red { background: #ff9aa2; }
+.win-dot.yellow { background: #ffdac1; }
+.win-dot.green { background: #b5ead7; }
+
+.game-slot-tag {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--wood-brown);
+}
+
+/* Espaço reservado da miniatura do jogo */
+.game-thumbnail-slot {
+  margin: 0.8rem 0.8rem 0.5rem;
+  height: 132px;
+  border-radius: 16px;
+  border: 2.5px dashed var(--wood-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-infantil { background: linear-gradient(135deg, #fff3e6 0%, #ffe0eb 100%); }
+.theme-nostalgia { background: linear-gradient(135deg, #e8f4f8 0%, #d4e4f7 100%); }
+.theme-matematica { background: linear-gradient(135deg, #eef9d8 0%, #d6f0b0 100%); }
+.theme-portugues { background: linear-gradient(135deg, #fff9db 0%, #ffec99 100%); }
+.theme-ingles { background: linear-gradient(135deg, #e6fcf5 0%, #c3fae8 100%); }
+.theme-passatempos { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); }
+
+.slot-reserved-stamp {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--wood-brown);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px dashed var(--wood-brown);
+}
+
+.game-win-body {
+  padding: 0.35rem 0.95rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.game-audience-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.game-cat-pill {
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 8px;
+  background: #eef8dc;
+  color: var(--green-moss);
+  border: 1px solid #b7df7d;
+}
+
+.game-age-pill {
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--wood-light);
+}
+
+.game-win-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--wood-dark);
+  margin-bottom: 0.25rem;
+}
+
+.game-win-desc {
+  font-size: 0.84rem;
+  color: var(--wood-brown);
+  line-height: 1.35;
+  margin-bottom: 0.85rem;
+  flex: 1;
+}
+
+.btn-card-slot {
+  width: 100%;
+  background: var(--green-pastel-light);
+  color: var(--green-dark-outline);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.48rem 0.75rem;
+  border-radius: 999px;
+  border: 2px dashed var(--green-moss);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background 0.15s ease;
+}
+
+.game-window-card:hover .btn-card-slot {
+  background: var(--green-pastel);
+  color: var(--wood-dark);
+  border-style: solid;
+}
+
+/* Rodapé Verde Clarinho Pontilhado da Janela */
+.window-footer {
+  padding: 0.95rem 1.2rem;
+  background-color: var(--green-pastel);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 2px, transparent 2px);
+  background-size: 14px 14px;
+  border-top: 3.5px solid var(--wood-brown);
+  text-align: center;
+}
+
+.footer-note-pill {
+  display: inline-block;
+  background: var(--cream-paper);
+  color: var(--wood-dark);
+  font-size: 0.86rem;
+  padding: 0.3rem 1.1rem;
+  border-radius: 999px;
+  border: 2px dashed var(--wood-brown);
+}
+
+/* ==========================================================================
+   3. MODAL DO JOGO
+   ========================================================================== */
+.slot-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+}
+
+.slot-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(52, 37, 22, 0.55);
+}
+
+.slot-modal-window {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  width: 100%;
+  background: var(--cream-paper);
+  border: 5px solid var(--wood-brown);
+  border-radius: 26px;
+  box-shadow: 0 14px 0 var(--wood-dark), 0 20px 45px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: popInCard 0.3s ease;
+}
+
+.slot-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.2rem;
+  background: var(--yellow-butter);
+  border-bottom: 3px solid var(--wood-brown);
+}
+
+.modal-cat-pill {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: #ffffff;
+  color: var(--wood-brown);
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  border: 2px dashed var(--wood-brown);
+}
+
+.btn-close-modal {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 2px solid var(--wood-brown);
+  background: #ff9aa2;
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.slot-modal-body {
+  padding: 1.5rem;
+}
+
+.modal-canvas-placeholder {
+  border: 3px dashed var(--wood-light);
+  border-radius: 20px;
+  background: var(--cream-card);
+  padding: 2.2rem 1.5rem;
+  text-align: center;
+}
+
+.modal-canvas-placeholder h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--wood-dark);
+  margin-bottom: 0.5rem;
+}
+
+.modal-canvas-placeholder p {
+  font-size: 0.95rem;
+  color: var(--wood-brown);
+  max-width: 440px;
+  margin: 0 auto 1.1rem;
+  line-height: 1.45;
+}
+
+.dev-slot-info {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  background: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--wood-tan);
+}
+
+.slot-modal-footer {
+  padding: 0.85rem 1.5rem;
+  background: #f5ebd6;
+  border-top: 2.5px solid var(--wood-brown);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-cozy-secondary {
+  background: var(--green-pastel);
+  color: var(--wood-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.6rem;
+  border-radius: 999px;
+  border: 2.5px solid var(--wood-dark);
+  box-shadow: 0 4px 0 var(--wood-dark);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 1120px) {
+  .portal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-sidebar {
+    position: static;
+  }
+
+  .ad-right-empty {
+    display: none;
+  }
+
+  .ad-placeholder-box {
+    min-height: 90px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .title-line-1 { font-size: 1.8rem; }
+  .title-line-2 { font-size: 2.8rem; }
+  .btn-jogar { font-size: 1.45rem; padding: 0.8rem 2.4rem; }
+  .top-bar-spacer { display: none; }
+  .window-top-bar { justify-content: center; text-align: center; }
+  .search-box-stitched { max-width: 100%; width: 100%; }
+}
